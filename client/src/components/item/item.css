@@ -1,0 +1,7 @@
+.item {
+    padding: 1em;
+}
+
+.item>.item-title {
+    margin: 1em;
+}

@@ -1,20 +1,26 @@
 import React, { Component } from "react";
 import TodoItem from "../item";
+import "./items.css";
 
 class Todo extends Component {
   state = {
-    todoList: [
-      { id: 1, name: "Milk" },
-      { id: 2, name: "Learn Course" },
-      { id: 3, name: "Pay Bill" }
-    ],
+    todoList: [],
     addItem: ""
   };
+  componentDidMount() {
+    fetch("/api/todoList")
+      .then(resp => {
+        return resp.json();
+      })
+      .then(response => {
+        this.setState({ todoList: response });
+      });
+  }
   addItem() {
     let todoListTemp = this.state.todoList.slice();
     todoListTemp.push({
-      id: this.state.todoList.length + 1,
-      name: this.state.addItem
+      Id: this.state.todoList.length + 1,
+      Name: this.state.addItem
     });
     this.setState({ addItem: "", todoList: todoListTemp });
   }
@@ -23,40 +29,42 @@ class Todo extends Component {
   }
   itemDelete($event) {
     let todoTemp = this.state.todoList.slice();
-    const index = todoTemp.findIndex(item => item.id === $event.id);
+    const index = todoTemp.findIndex(item => item.Id === $event.Id);
     todoTemp.splice(index, 1);
     this.setState({ todoList: todoTemp });
   }
   render() {
     return (
-      <div>
+      <div className="todo-wrapper">
         <div>Todo Component</div>
         <ul>
           {this.state.todoList.map(todo => (
             <TodoItem
               onDelete={event => this.itemDelete(event)}
-              key={todo.id}
+              key={todo.Id}
               item={todo}
             />
           ))}
         </ul>
-        <input
-          type="text"
-          value={this.state.addItem}
-          onChange={e => this.setInputValue(e)}
-          placeholder="Add item"
-        />
-        <button
-          type="button"
-          disabled={!this.state.addItem}
-          className="btn btn-primary"
-          onClick={() => this.addItem()}
-        >
-          Add Item
-        </button>
-        <button type="button" className="btn btn-secondary">
-          Save
-        </button>
+        <div className="items-action">
+          <input
+            type="text"
+            value={this.state.addItem}
+            onChange={e => this.setInputValue(e)}
+            placeholder="Add item"
+          />
+          <button
+            type="button"
+            disabled={!this.state.addItem}
+            className="btn btn-primary"
+            onClick={() => this.addItem()}
+          >
+            Add Item
+          </button>
+          <button type="button" className="btn btn-secondary">
+            Save
+          </button>
+        </div>
       </div>
     );
   }

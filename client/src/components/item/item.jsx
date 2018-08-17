@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./item.css";
 
 class TodoItem extends Component {
   state = {};
@@ -6,8 +7,8 @@ class TodoItem extends Component {
   render() {
     const item = this.props.item;
     return (
-      <li>
-        <span>{item.name}</span>
+      <li className="item">
+        <span className="item-title">{item.Name}</span>
         <button
           type="button"
           className="btn btn-danger"
