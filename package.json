@@ -1,0 +1,30 @@
+{
+  "name": "react-backend",
+  "version": "1.0.0",
+  "description": "React integration with Node.js and MySql",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "server": "node server.js",
+    "client": "cd client && yarn start",
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmahesh123/todoReact.git"
+  },
+  "author": "J Mahesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmahesh123/todoReact/issues"
+  },
+  "homepage": "https://github.com/jmahesh123/todoReact#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+	"concurrently": "^3.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
